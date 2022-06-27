@@ -1,0 +1,442 @@
+***************************************************************
+* SmartSteamEmu v1.3.0                                        *
+* by syahmixp                                                 *
+***************************************************************
+
+This is a steam client emulator which enables you to play steam
+games without STEAM client and play lobby enabled-games or
+online multiplayer games on LAN without any internet connection.
+
+This emulator initially intended only for Age of Empires II HD
+to enable lobby features without depending on STEAM. Now the
+emulator has been updated and can be used with other steam's
+game.
+
+
+Features:
+ - Run steam game without steam
+ - Enables play on LAN without internet connection
+ - Emulates lobby, server browser
+ - Emulates CS:GO items/inventory
+ - Stats, Achievements and Save games
+ - Configurable DLC subscription
+ - Avatar support
+ - Plugins support
+ - UGC/Steam Workshop partial support
+
+Requirements:
+ - Microsoft(R) Visual C++ 2010 Runtime (x86)
+ - .NET Framework 4 (SSELauncher only)
+ - Steam games
+
+How to use:
+ - Extract all files to game directory or any directory.
+ - Open SmartSteamEmu.ini and edit as neccessary.
+ - Launch SmartSteamLauncher.exe and not the game executable.
+ - To use different configuration file, add configuration file path
+   to launcher parameter.
+ - Put your plugins into SmartSteamEmu\Plugins folder. SmartSteamEmu
+   will automatically load the dll files.
+
+Note:
+ If your games use cracked version that replace steam_api.dll,
+ make sure you restore the original steam_api.dll file first.
+
+ Some games may require pre-cracked file to run the games, but be
+ sure steam_api.dll is the original.
+
+ Some games such as tomb raider that can host private match
+ require invite friends function to invite others to join their
+ private match. Since this emulator didn't have any invite friend
+ implemented, to JOIN the server press SHIFT+TAB simultaneously.
+
+Plugin Development:
+ Plugin is simply a dll file to extend or change the emulator or game
+ behaviour. The dll will be loaded by SmartSteamEmu via LoadLibrary().
+ Additionally the plugin can have SmartInit() and SmartShutdown()
+ exported function. To get better understanding, download the PDK.
+
+ PDK can be downloaded here: http://cs.rin.ru/forum/viewtopic.php?f=20&t=65200
+
+***************************************************************
+
+[Changelog]
+Version 1.3.0 (July 1, 2015)
+ - Limit CSGO items as games cannot handle more than 2005 items
+ - Fixed public ip retrieval thread deadlocked
+ - Fixed new DOTA 2 crash on startup and added partial GC support
+ - Fixed stats not updated for Killing Floor 2
+ - Fixed save game issue with Dead Rising 2 OTR
+ - Added FailOnNonExistenceStats options to prevent loop
+ - Changed storage folder structure
+ - SSELauncher: Improved startup time by loading icon asynchronously
+ - SSELauncher: Added relative path support when game is inside launcher directory
+ - SSELauncher: Added SmartSteamEmu new FailOnNonExistence options
+
+Version 1.2.9 (May 25, 2015)
+ - Fixed crashing when loading file without valid data pointer
+ - Fixed crashing with payday 2 when buying from contract broker
+ - Fixed server browser favorites/history may not showing anything
+ - Fixed other possible crash
+
+Version 1.2.8 (May 24, 2015)
+ - Added SteamStub/DRM bypasser
+ - Added partial steam.dll emulation
+ - Added ParanoidMode - warn if steam is running
+ - Added remote player manager
+ - Fixed crash when using SteamAchievementManager (SAM)
+ - Fixed probable crash at various network location and other places
+ - Fixed get friend appid return 0
+ - Fixed lobby owner cannot join own lobby
+ - Fixed steam_api.dll replacement (SmartSteamEmu.dll renamed to steam_api.dll) crash
+ - Fixed server browser favorites and history merged together
+ - Fixed CS:GO nametag doesn't get removed when applied
+ - Fixed server browser cannot query some of the master server
+ - Rewrite leaderboard and added option to disable leaderboard
+ - Ensure proper cleanup when exiting
+ - Enable persona state again
+ - Updated to latest steam interfaces
+ - Minor changes: Prioritize appid from env than steam_appid.txt, fixed logging, synchronization
+ - SSELauncher: Fixed broadcast address and masterserver entry got duplicates everytime you open the launcher.
+ - SSELauncher: Fixed cancelling game renaming will cause game name to be empty
+ - SSELauncher: Added option - Disable Leaderboard, Paranoid Mode, Admin password
+ - SSELauncher: Set default button on settings page
+
+Version 1.2.7 (May 14, 2015)
+ - Added player management, allowing to ban user
+ - Added delay when retrieving or uploading fake leaderboard
+ - Fixed x64 packet corruption and x86/x64 packet inconsistency
+ - LAUNCHER: Immediately save all settings
+ - LAUNCHER: Added player management tab
+ - LAUNCHER: Added persist options
+ - LAUNCHER: Fixed desktop shortcut launch loader instead of games
+ - LAUNCHER: Single Instance
+ - LAUNCHER: Other minor adjustment and fix
+
+Version 1.2.6 (May 8, 2015)
+ - Introducing SSELauncher! No more headache configuring games with SmartSteamEmu
+ - Fixed hang when joining game, moved public ip query into background thread.
+ - Fixed cs:go unable to join game (kicked, must join through lobby)
+ - Fixed player not removed when disconnected, visible in server browser
+ - Fixed some crash when querying server
+ - Fixed favorites server browser save duplicates entry
+ - Fixed creating minidump might causes memory corruption
+ - Fixed hanging when exiting
+ - Fixed stats may not be loaded by some games
+ - Fixed sending wrong packet when querying other stats
+ - Fixed HTML surface interface unable to be retrieved using steam api replacement
+ - Added DirectPatch from old SmartSteam
+ - Implemented query server listener
+ - Implemented average stats
+ - CS:GO client now able send items/weapon skins to dedicated server
+ - Rewrite loader, fixed a lot of stuff such as truncated path, overflow, etc.
+ - Loader now has unicode support
+ - Loader now restore steam registry properly
+ - Many minor fix (log output, stack overflow, ugc crash)
+
+Version 1.2.5 (April 12, 2015)
+ - Revised almost all matchmaking, networking and game server implementation
+ - Implemented lobby filter
+ - Implemented app install directory
+ - Added lobby join timeout
+ - Added GenerateRandom steam id option
+ - Added custom save game folder location
+ - Added persona name and path unicode support (save smartsteamemu.ini as Unicode encoding)
+ - Added partial portal 2 items support
+ - Added warning (log) when set an invalid manual steam id
+ - Added Dragon Ball Xeno Verse ability to load any user save game file
+ - Added log file marker
+ - Fixed remote storage return empty/corrupted filename
+ - Fixed online packet splitting again
+ - Fixed game server doesn't remove player when disconnected
+ - Fixed LAN query missing server name
+ - Fixed loader launch and start in parameter
+ - Fixed PersonaName accountname fallback
+ - Ensure stats is saved when exiting
+ - LAN server browser improvement and stability
+ - LAN players query support
+ - Implemented -appid command line support
+ - Implemented -language command line support
+ - Improved items/inventory speed
+ - dproto >= 0.9.543 support
+ - Updated configuration layout
+ - Update protocol version, prevent connection to/from older emulator
+ - Some minor fix
+
+Version 1.2.4 (March 26, 2015)
+ - Corrected internet server browser ping a bit
+ - Fixed Tomb Raider cannot launching
+ - Fixed crash when sending empty packet (CS:GO crash)
+ - Fixed CS:GO empty weapon texture when giving random item
+ - Fixed lobby transfer doesn't transfer app id
+ - Fixed server browser socket doesn't close when done
+ - Fixed avatar not showing again
+ - Implemented internet server browser quick refresh
+ - Implemented favorites server browser
+ - Implemented multiple lobby creation
+ - Enable Payday 2 HoxHud by default
+ - Enable lobby invites
+ - Split online mode relay packet when its too large
+ - Transfer lobby when connection lost instead of closing it
+ - Prevent connection from old emulator
+
+Version 1.2.3 (March 24, 2015)
+ - Added community (item) support for Payday 2
+ - Fixed p2p session bug causing some games unable to communicate
+ - Fixed crash on Payday 2 when joining lobby
+ - Fixed p2p packet read starvation
+ - Fixed GS logging and exception
+ - Fixed GS Lan response
+ - Fixed lobby id instance
+ - Fixed avatar disappear and constantly loading on some games
+ - Fixed set lobby owner on own lobby causing it to be closed
+ - Fixed game got "player left lobby" message when other player exiting/lost connection even without joining the lobby
+ - Fixed possible crash due to race condition
+ - Rewrite internet server browser
+ - Minor GS behavior change
+ - Implemented lobby invite for supported games
+ - Implemented CS:GO item rename/name tag
+ - Corrected CS:GO item paint kit when giving random item
+
+Version 1.2.2 (March 9, 2015)
+ - Quick fix for version 1.2.1
+ - Fixed loading file (items/savegame/etc) issue
+ - Fixed authentication, game cannot create lobby
+ - Fixed launcher command line concatenation issue
+ - Fixed GS logon
+ - Added knives for CS:GO
+
+Version 1.2.1 (March 8, 2015)
+ - Fixed socket port initialization may not connect to other user
+ - Added online mode - experimental, disabled by default
+ - Added virtual port for GS and P2P instead of opening new port
+ - Added internet server browser
+ - Added support for LumaEmu steam id generation
+ - Added disable friend - as requested by anssik
+ - Added launcher command line - as requested by ortakey
+ - Added "common" user folder - as requested by arbiter1of1
+ - Implemented all user stats interface member
+ - Implemented get launch query parameter
+ - Implemented CS:GO items/inventory/StatTrak/Random Awards
+ - Fixed random crash due to race condition at various place
+ - Fixed UGC crash - thanks to arbiter1of1
+ - Fixed launcher doesn't restore x64 steamclient original registry value
+ - Fixed network data may be ignored after game destructing some steam user interface
+ - Fixed image transformation algorithm, yellowish avatar
+ - Fixed launcher truncated start in path
+ - Fixed CS:GO hang when there is UGC map
+ - Change lobby now only respond to same appid
+Special thanks to:
+  shmelle - providing server browser code
+  arbiter1of1 - testing games and with UGC
+  Shlak and [x3r0] - For giving hints with CS:GO items/inventory/StatTrak
+
+Version 1.2.0 (February 14, 2015)
+ - Added more missing interface (HTMLSurface, Inventory, Video)
+ - Added game server tags support
+ - Added/Implemented more steam api exported function
+ - Fixed/Added some missing game callback
+ - Fixed "AccountName" may use old account name
+ - Fixed RunFrame() doesn't get called in some interfaces.
+ - Fixed controller initialization
+ - Fixed friend flags and relationship
+ - Fixed game server give outdated connection info
+ - Fixed game server doesn't transmit moddir, causing some game to ignore the server
+ - Fixed game server listed as "Friend"
+ - Fixed some game waiting for auth ticket response forever
+ - Fixed logon response transmit too early, some game just missed it
+ - Fixed authentication problem causes some game unable to join the server
+ - UGC behaviour changed
+
+Version 1.1.9 (February 11, 2015)
+ - Storage(save games) now can be changed to app data (default).
+ - Ability to use your computer name/account name for persona name.
+ - Updated to latest steam interface.
+
+Version 1.1.8 (September 7, 2014)
+ - Automatically find interface version based on original steam_api.dll
+ - Fixed remote storage increasing file count
+ - Fixed remote storage file stream memory leak
+ - Fixed rare crash when using as steam_api.dll replacement
+
+Version 1.1.7 (August 14, 2014)
+ - Fixed UGC crash.
+ - Fixed some games save UGC on wrong path.
+ - Added more API for plugins.
+
+Version 1.1.6 (August 13, 2014)
+ - Added UGC/Steam Workshop partial support.
+ - Fixed plugins search path when turning on SeparateStorageByName.
+ - Fixed default avatar doesn't get loaded when turning on SeparateStorageByName.
+
+Version 1.1.5 (August 7, 2014)
+ - This version introduces plugins development kit.
+
+Version 1.1.4 (August 6, 2014)
+ - Added missing SteamUtils007 interface.
+ - Added plugins support.
+ - Fixed exception log doesn't give exact problem.
+
+Version 1.1.3 (July 27, 2014)
+ - Added steam_api.dll replacement partial support
+ - Added x64 build (Untested)
+ - Added manual steam id support
+ - Updated interface
+
+Version 1.1.2 (January 1, 2013)
+ - Fixed local user data folder doesn't get created
+ - Fixed cs:go crash when starting with -steam parameter
+ - Updated interface
+
+Version 1.1.1 (October 23, 2013)
+ - Fixed resident evil 6 multiplayer disconnect
+ - Fixed avatar loading only accept absolute path
+ - Fixed stats interface causing crash
+ - Fixed others doesn't received lobby update
+ - Fixed closing audio device when in-game voice disabled
+ - Fixed lobby member limit always return zero
+ - Fixed lobby initialization
+ - Fixed lobby gives incorrect data when retrieving game server
+ - Fixed lobby signal received when user not in lobby
+ - Fixed crash when retrieving stats with empty key
+ - Fixed all memory leaks
+ - Fixed steam pipe count
+ - Added new configuration section for log and debug
+ - Added more log output
+ - Added log output filter
+ - Added lobby connection lost handling
+ - Rewrite all interfaces
+ - Rewrite the emulator core
+ - Implemented user data folder
+ - Implemented friend stats
+ - Implemented lobby owner transfer
+ - Implemented directory support for remote storage
+ - Implemented DLC list
+
+Version 1.1.0 (October 16, 2013)
+ - Added support to change quick join hotkey
+ - Added support to change avatar filename
+ - Added support to override achievements
+ - Updated network library
+ - Fixed some random crash
+ - Fixed language doesn't get changed on some games
+ - Fixed some leaks
+ - Fixed lobby data doesn't get updated
+ - Implemented HTTP interface
+ - Implemented more friends function
+ - Implemented dummy leaderboard
+ - Implemented new user interface v17
+ - Implemented in-game voice support (experimantal)
+
+Version 1.0.9 (October 7, 2013)
+ - Added registry restoration after launcher closed
+ - Fixed wrong interface version given causing crash in some games
+ - Fixed empty interface (remote/screenshot) given causing crash in some games
+ - Fixed random crash around lobby
+ - Fixed steam pipe
+ - Fixed server browser crash
+ - Fixed virtual port overflow
+ - Implemented friend rich present
+
+Version 1.0.8 (October 5, 2013)
+ - Added minidump creation during crash
+ - Added loader support for launching with different configuration file using command line
+ - Added support for networking manual override
+ - Added resident evil 6 save game patch to load any others save game
+ - Fixed crash when retrieving others persona name
+ - Fixed validation issue causes game waiting for authentication result
+ - Fixed lobby data retrieval always fail
+ - Fixed lobby data notification spam for some games
+ - Fixed empty value on configuration file doesn't uses default value
+ - Fixed game doesn't get notified when connection with other was lost
+ - Implemented partial matchmaking/game server browser support
+ - Implemented user source retrieval
+ - Implemented multiple local user
+ - Implemented lobby member data
+ - Implemented lobby data request notification
+ - Implemented some missing steam interfaces
+
+Version 1.0.7 (October 2, 2013)
+ - Added different method of generating steam id
+ - Updated interfaces
+
+Version 1.0.6 (May 14, 2013)
+ - Fixed most memory leaks
+ - Fixed crash on exit for some games
+ - Fixed issue around lobby and game server
+ - Fixed remote storage quota false report
+ - Fixed crash on some games due to HTTP emulation
+ - Fixed socket deadlock causing networking failure
+ - Fixed corrupted save game issue
+
+Version 1.0.5 (Mei 8, 2013)
+ - Fixed remote storage bug causing some games doesn't work properly
+ - Fixed language doesn't properly detected by some games
+
+Version 1.0.4 (Mei 7, 2013)
+ - Reworked the networking
+ - Added SHIFT+TAB to join lobby (emulate invites)
+ - Added avatar support
+ - Added more logging output
+ - Added partial IPC support
+ - Added game server steam id support
+ - Added alternate socket listen port
+ - Implemented some missing interfaces and functions
+ - Fixed lost pid causes new game process failed to launch
+ - Fixed crash when requesting lobby list
+ - Fixed lobby doesn't delete some lobby data
+ - Fixed some memory and handle leaks
+ - Fixed invalid peer's steam id on some games
+ - Fixed remote storage cache causing file count increases
+ - Fixed aggresive discovery loop
+ - Fixed cannot connect to secure server, plugin detected
+
+Version 1.0.3 (April 27, 2013)
+ - Added logging enable/disable support
+ - Added DLC configuration
+ - Added configuration support for boolean value "true/false" or 0/1
+ - Added option to create secure/insecure server
+ - Fixed some games cannot found lobby again
+ - Fixed incorrect p2p data length given to games causing crash on some games
+ - Fixed p2p handshaking causes some games to wait
+ - Fixed remote storage give incorrect file count due to cache deduplication
+ - Fixed remote storage give directory names to game
+ - Fixed achievements bug
+ - Fixed game waiting for data due to unimplemented method
+
+Version 1.0.2 (April 26, 2013)
+ - Added remote storage support
+ - Added per user directory for stats/achievements/storage/save games support
+ - Added launcher persistent mode
+ - Added Support for absolute path on "Target" launcher settings
+ - Added some logging
+ - Added app id verification before launch
+ - Added support to turn on low violence
+ - Added support to change language
+ - Fixed some lobby issue
+ - Fixed some games doesn't found any lobby
+ - Fixed some games fail to launch due to incorrect pid given
+ - Fixed some games fail to launch caused by no app id found
+ - Remove lobby app id verification
+
+Version 1.0.1 (April 25, 2013)
+ - Add support for stats and achievements
+ - Add support for overriding app id
+ - Fix cannot join created lobby
+ - Fix PersonaName not being read correctly
+ - Fix game doesn't transmit some lobby data
+ - Fix lot of crash and memory corruption
+
+Version 1.0.0 (April 20, 2013)
+ - Added support for older games
+ - Fixed some crashing
+ - Replaced old loader with new one
+
+Initial Release (April 17, 2013)
+ - Lobby support for Age of Empires II HD
+
+***************************************************************
+
+Credits:
+ Thanks to OSW members and supporting friends
+ and to all cs.rin.ru developers.
